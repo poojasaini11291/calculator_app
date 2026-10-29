@@ -1,0 +1,34 @@
+{
+    "schema_version": 1,
+    "updated_at": "2026-10-28",
+    "active_session_id": "KAN-26",
+    "sessions": {
+        "KAN-25": {
+            "workflow_id": "WF-2026-003",
+            "context_path": "context/workflow-context.json",
+            "status": "COMPLETED",
+            "current_stage": "complete",
+            "resume_from": null,
+            "pending_gate": null,
+            "last_checkpoint": "workflow_audit"
+        },
+        "KAN-26": {
+            "workflow_id": "WF-2026-004",
+            "context_path": "context/sessions/KAN-26/workflow-context.json",
+            "status": "AWAITING_HUMAN_APPROVAL",
+            "current_stage": "implementation_planning",
+            "resume_from": "implementation_planning",
+            "pending_gate": "implementation_plan_approval",
+            "last_checkpoint": "design_review"
+        },
+        "KAN-27": {
+            "workflow_id": "WF-2026-005",
+            "context_path": "context/sessions/KAN-27/workflow-context.json",
+            "status": "PAUSED",
+            "current_stage": "release",
+            "resume_from": "release",
+            "pending_gate": "pr_creation_approval",
+            "last_checkpoint": "verification"
+        }
+    }
+}

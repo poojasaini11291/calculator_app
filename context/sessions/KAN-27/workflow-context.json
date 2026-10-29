@@ -1,0 +1,128 @@
+{
+    "schema_version": 1,
+    "workflow_id": "WF-2026-005",
+    "session_id": "KAN-27",
+    "project_name": "Calculator Square Root Enhancement",
+    "jira_story": "KAN-27",
+    "jira_url": "https://poojasaini11291.atlassian.net/browse/KAN-27",
+    "current_stage": "release",
+    "status": "PAUSED",
+    "resume_from": {
+        "stage": "release",
+        "gate": "pr_creation_approval"
+    },
+    "pause_reason": "User requested to hold KAN-27 and resume KAN-26.",
+    "human_approvals": {
+        "requirements": true,
+        "implementation_plan": true,
+        "pr_creation": false,
+        "pr_merge": false
+    },
+    "artifacts": {
+        "requirements": "docs/sessions/KAN-27/plans/requirements.md",
+        "architecture": "docs/sessions/KAN-27/plans/architecture.md",
+        "design_review": "docs/sessions/KAN-27/plans/design-review.md",
+        "implementation_plan": "docs/sessions/KAN-27/plans/impl-plan.md",
+        "code_review": "docs/sessions/KAN-27/plans/code-review.md",
+        "verification": "docs/sessions/KAN-27/plans/verification.md",
+        "changelog": "docs/sessions/KAN-27/plans/changelog.md",
+        "pr_draft": "docs/sessions/KAN-27/plans/pr-draft.md"
+    },
+    "open_questions": [],
+    "previous_workflow_ref": {
+        "workflow_id": "WF-2026-003",
+        "jira_story": "KAN-25",
+        "status": "COMPLETED",
+        "pull_request": "https://github.com/poojasaini11291/ps_capstone_claude/pull/3"
+    },
+    "execution_history": [
+        {
+            "stage": "requirements",
+            "status": "COMPLETED",
+            "artifact": "docs/sessions/KAN-27/plans/requirements.md",
+            "source_verified": true,
+            "human_approved": true,
+            "timestamp": "2026-10-28",
+            "execution_mode": "Inline orchestration; custom profile launcher unavailable in this chat.",
+            "approval": "User approved KAN-27 as a KAN-25 enhancement, the proposed interaction, eight-place maximum precision, and V-001 through V-008."
+        },
+        {
+            "stage": "architecture",
+            "status": "COMPLETED",
+            "artifact": "docs/sessions/KAN-27/plans/architecture.md",
+            "human_approved": false,
+            "timestamp": "2026-10-28"
+        },
+        {
+            "stage": "design_review",
+            "status": "COMPLETED",
+            "artifact": "docs/sessions/KAN-27/plans/design-review.md",
+            "human_approved": false,
+            "timestamp": "2026-10-28",
+            "verdict": "APPROVED",
+            "blockers": 0,
+            "findings": 2
+        },
+        {
+            "stage": "implementation_planning",
+            "status": "COMPLETED",
+            "artifact": "docs/sessions/KAN-27/plans/impl-plan.md",
+            "human_approved": true,
+            "timestamp": "2026-10-28",
+            "approval": "User explicitly approved the implementation plan and round-half-up formatting to a maximum of eight fractional places with trailing zeros trimmed."
+        },
+        {
+            "stage": "development",
+            "status": "COMPLETED",
+            "artifact": "src/",
+            "human_approved": false,
+            "timestamp": "2026-10-28",
+            "completed_tasks": [
+                "KAN27-01",
+                "KAN27-02",
+                "KAN27-03",
+                "KAN27-04"
+            ],
+            "tests_passed": 14,
+            "tests_total": 14
+        },
+        {
+            "stage": "code_review",
+            "status": "COMPLETED",
+            "artifact": "docs/sessions/KAN-27/plans/code-review.md",
+            "human_approved": false,
+            "timestamp": "2026-10-28",
+            "verdict": "PASS",
+            "blockers": 0,
+            "majors": 0,
+            "minors": 0,
+            "execution_mode": "Inline review; custom profile launcher unavailable in this chat."
+        },
+        {
+            "stage": "verification",
+            "status": "COMPLETED",
+            "artifact": "docs/sessions/KAN-27/plans/verification.md",
+            "human_approved": false,
+            "timestamp": "2026-10-28",
+            "tests_passed": 14,
+            "tests_total": 14,
+            "result": "ALL PASSED; browser and response-time checks passed."
+        },
+        {
+            "stage": "release_preparation",
+            "status": "AWAITING_PR_CREATION_APPROVAL",
+            "artifact": "docs/sessions/KAN-27/plans/pr-draft.md",
+            "human_approved": false,
+            "timestamp": "2026-10-28",
+            "pr_created": false
+        },
+        {
+            "stage": "release",
+            "status": "PAUSED",
+            "event": "SESSION_PAUSED",
+            "resume_from": "pr_creation_approval",
+            "timestamp": "2026-10-28",
+            "reason": "User switched active work to KAN-26."
+        }
+    ]
+}
