@@ -2,6 +2,7 @@ from decimal import Decimal, ROUND_HALF_UP, localcontext
 
 from src.schemas import Operation
 
+SQUARE_ROOT_PRECISION = 8
 SQUARE_ROOT_ERROR = "Invalid input. Square root of a negative number is not supported."
 
 
@@ -33,7 +34,7 @@ def calculate_square_root(value: Decimal) -> Decimal:
     with localcontext() as context:
         context.prec = max(context.prec, integer_digits + 10)
         result = value.sqrt().quantize(
-            Decimal("0.00000001"),
+            Decimal(1).scaleb(-SQUARE_ROOT_PRECISION),
             rounding=ROUND_HALF_UP,
         )
     return result

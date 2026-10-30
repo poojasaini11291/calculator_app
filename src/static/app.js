@@ -50,6 +50,7 @@ form.addEventListener("submit", async (event) => {
 });
 
 squareRootButton.addEventListener("click", async () => {
+    const activatedAt = performance.now();
     errorMessage.hidden = true;
     errorMessage.textContent = "";
     const currentValue = result.textContent.trim() || firstNumber.value;
@@ -75,7 +76,20 @@ squareRootButton.addEventListener("click", async () => {
         result.textContent = payload.result;
         firstNumber.value = payload.result;
         resultHint.textContent = "Square root calculated. Use this value in your next operation.";
+
+        // Include the browser/API round trip and wait for the updated result
+        // to pass through a paint before recording the agreed timing interval.
+        await new Promise((resolve) => {
+            requestAnimationFrame(() => requestAnimationFrame(resolve));
+        });
+        performance.clearMeasures("square-root-activation-to-result-display");
+        performance.measure("square-root-activation-to-result-display", {
+            start: activatedAt,
+            end: performance.now(),
+        });
     } catch (error) {
+        result.textContent = "";
+        resultHint.textContent = "";
         errorMessage.textContent = error.message;
         errorMessage.hidden = false;
     }

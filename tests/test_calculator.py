@@ -2,6 +2,8 @@ from decimal import Decimal
 
 import pytest
 
+from src.calculator import SQUARE_ROOT_PRECISION
+
 
 @pytest.mark.parametrize(
     ("first_number", "second_number", "operation", "expected"),
@@ -59,7 +61,13 @@ def test_square_root(value: str, expected: str, client):
     response = client.post("/sqrt", json={"value": value})
 
     assert response.status_code == 200
-    assert response.json()["result"] == expected
+    result = response.json()["result"]
+    assert result == expected
+    assert len(result.partition(".")[2]) <= SQUARE_ROOT_PRECISION
+
+
+def test_square_root_precision_is_eight_decimal_places():
+    assert SQUARE_ROOT_PRECISION == 8
 
 
 def test_square_root_of_negative_returns_exact_error(client):
@@ -103,4 +111,31 @@ def test_calculator_page_and_assets_are_served(client):
     assert 'aria-label="Square root"' in page.text
     assert '>√</button>' in page.text
     assert client.get("/static/style.css").status_code == 200
-    assert client.get("/static/app.js").status_code == 200
+    script = client.get("/static/app.js")
+    assert script.status_code == 200
+    assert 'performance.measure("square-root-activation-to-result-display"' in script.text
+
+
+def test_square_root_frontend_error_flow_contract_clears_displayed_result(client):
+    script_response = client.get("/static/app.js")
+    assert script_response.status_code == 200
+    script = script_response.text
+
+    # This project has no browser automation runtime, so verify the served
+    # frontend's contract for a negative displayed result and its failed √ flow.
+    square_root_handler = script.split(
+        'squareRootButton.addEventListener("click", async () => {', 1
+    )[1].split('clearButton.addEventListener("click"', 1)[0]
+    failure_handler = square_root_handler.split("} catch (error) {", 1)[1].split(
+        "\n    }\n});", 1
+    )[0]
+
+    assert (
+        "const currentValue = result.textContent.trim() || firstNumber.value;"
+        in square_root_handler
+    )
+    assert 'body: JSON.stringify({ value: currentValue })' in square_root_handler
+    assert 'result.textContent = "";' in failure_handler
+    assert 'resultHint.textContent = "";' in failure_handler
+    assert "errorMessage.textContent = error.message;" in failure_handler
+    assert "errorMessage.hidden = false;" in failure_handler
